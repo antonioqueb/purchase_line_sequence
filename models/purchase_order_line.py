@@ -10,7 +10,7 @@ class PurchaseOrderLine(models.Model):
         store=False,
     )
 
-    @api.depends("sequence")
+    @api.depends("order_id.order_line")
     def _compute_line_number(self):
         for order in self.mapped("order_id"):
             lines = order.order_line.filtered(lambda l: not l.display_type)
